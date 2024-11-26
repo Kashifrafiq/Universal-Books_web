@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from '../../component/Poupup/Poupup';
+import { createCheckOutSession } from '../../stripe/createCheckoutSession';
 
 const SubscriptionPage = () => {
   // Mock state for demonstration
@@ -147,7 +148,7 @@ const SubscriptionPage = () => {
       </div>
       <div>
       </div>
-        <button style={{all:"unset", marginLeft:"10px" , marginTop:"20px" , padding:"10px" , backgroundColor:"#44c8f5" , width:"100px" , textAlign:"center" , borderRadius:"30px"}}>Pay</button>
+        <button onClick={()=> createCheckOutSession('bBPLWWpGseUeaaoybIfNQ0sm6Gl2')} style={{all:"unset", marginLeft:"10px" , marginTop:"20px" , padding:"10px" , backgroundColor:"#44c8f5" , width:"100px" , textAlign:"center" , borderRadius:"30px"}}>Pay</button>
         <button style={{all:"unset",cursor:"pointer", marginLeft:"10px" , marginTop:"20px" , padding:"10px"  , width:"100px" , textAlign:"center" , borderRadius:"30px"}} onClick={closePopup}>Cancel</button>
     </div>
   </div>
