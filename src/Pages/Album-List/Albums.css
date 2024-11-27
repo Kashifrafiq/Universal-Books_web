@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    background-color: #f9f9f9;
+}
+
+.loader .circle {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    background-color: #007bff;
+    border-radius: 50%;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+.albums-container {
+    margin-top: 50px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px; /* Space between buttons */
+}
+
+.toggle-buttons button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #f1f1f1;
+    color: #007bff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.toggle-buttons .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.album-card {
+    border-top: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.album-image-container {
+    padding: 10px;
+}
+
+.album-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.album-details {
+    font-size: x-large;
+    margin-left: 10px;
+    margin-top: 10px; /* Add spacing above the text */
+    text-align: left; /* Align text to the left */
+    width: 100%; /* Ensure full-width text block */
+    
+}
+
+.album-title {
+    font-size:1.5rem;
+    color: black;
+    
+}
+
+.album-tracks,
+.album-price {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Mobile styles only (max-width 768px) */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-title {
+        font-size: 1.2rem; /* Adjust size for mobile */
+        margin-bottom: 10px; /* Add spacing between title and buttons */
+    }
+
+    .toggle-buttons {
+        flex-direction: row; /* Buttons remain horizontal */
+        justify-content: center; /* Center-align buttons */
+        width: 100%; /* Ensure buttons span full width */
+    }
+
+    .toggle-buttons button {
+        margin: 0 10px; /* Space between buttons */
+    }
+
+    .album-card {
+        flex-direction: column; /* Stack image and text vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .album-image-container {
+        padding: 0;
+        width: 100%;
+    }
+
+    .album-image {
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto; /* Center the image horizontally */
+    }
+
+    .album-details {
+        margin-left: 0;
+        margin-top: 10px; /* Add spacing above the text */
+        text-align: left; /* Align text to the left */
+        width: 100%; /* Ensure full-width text block */
+        
+    }
+}
