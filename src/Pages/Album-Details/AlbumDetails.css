@@ -1,0 +1,186 @@
+/* General styles */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* Album card styling */
+.album-card {
+  margin-bottom: 20px;
+}
+
+/* Flexbox for alignment */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.col-xl-4,
+.col-xl-8 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Table responsiveness */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table-info table,
+.table-tracks {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-info th,
+.table-info td,
+.table-tracks th,
+.table-tracks td {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+  text-align: center;
+}
+
+.table-info th,
+.table-tracks th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .col-xl-4 {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+  }
+
+  .col-xl-8 {
+    flex: 0 0 66.6667%;
+    max-width: 66.6667%;
+  }
+}
+
+@media (max-width: 767px) {
+  .album-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .btn.banner-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  .table-info th,
+  .table-info td,
+  .table-tracks th,
+  .table-tracks td {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+}
+
+/* Loader */
+.main-loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader .circle {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+/* Popup styling */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup .popup-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  text-align: center;
+}
+
+.popup .popup-content button {
+  all: unset;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.popup .popup-content .pay-btn {
+  background-color: #44c8f5;
+  color: white;
+}
+
+.popup .popup-content .cancel-btn {
+  background-color: #ddd;
+  margin-left: 10px;
+}
+
+.popup .popup-content h2 {
+  font-size: 1.8rem;
+}
+
+.popup .popup-content p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Adjust popup content on small screens */
+@media (max-width: 576px) {
+  .popup .popup-content {
+    width: 95%;
+  }
+
+  .popup .popup-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .popup .popup-content p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,109 @@
+.landing-title {
+    font-size: larger;
+}
+
+
+@media (max-width: 991px) {
+    .gallery:nth-of-type(4),
+    .gallery:nth-of-type(5),
+    .gallery:nth-of-type(6) {
+        display: none;
+    }
+}
+
+.mobile-image {
+    width: auto;
+    height: auto;
+}
+
+@media (max-width: 561px) {
+    .mobile-image {
+        max-height: 26vh;
+    }
+    .main-image-mobile {
+        max-height: 28vh;
+    }
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)) !important; 
+    }
+    .gallery>img {
+        padding: 0 0 40px 0 !important;
+    }
+}
+
+@media (min-width: 562px) and (max-width: 767px) {
+    .mobile-image {
+        max-height: 50vh;
+    }
+    .main-image-mobile {
+        max-height: 55vh;
+    }
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(122px, 1fr)) !important; 
+    }
+    .gallery>img {
+        padding: 0 0 40px 0 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(154px, 1fr)) !important; 
+    }
+    .gallery>img {
+        padding: 0 20px 40px 0 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1013px) {
+    .mobile-image {
+        height: 480px !important;
+    }
+    .main-image-mobile {
+        max-height: 520px !important;
+    }
+}
+
+.gallery {
+    --d: 30s;
+    display: grid;
+    overflow: hidden;
+    margin-left: -200px;
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+    gap: 20px; 
+}
+
+.gallery>img {
+    grid-area: 1/1;
+    height: auto; 
+    max-width: 196px;
+    max-height: 196px;
+    animation: scroll var(--d) linear infinite;
+    padding: 0 20px 20px 0;
+}
+
+.gallery>img:nth-child(2) {
+    animation-delay: calc(1*var(--d)/-6)
+}
+
+.gallery>img:nth-child(3) {
+    animation-delay: calc(2*var(--d)/-6)
+}
+
+.gallery>img:nth-child(4) {
+    animation-delay: calc(3*var(--d)/-6)
+}
+
+.gallery>img:nth-child(5) {
+    animation-delay: calc(4*var(--d)/-6)
+}
+
+.gallery>img:nth-child(6) {
+    animation-delay: calc(5*var(--d)/-6)
+}
+
+@keyframes scroll {
+    100% {
+        transform: translateX(calc(100% + 1000px));
+    }
+}
