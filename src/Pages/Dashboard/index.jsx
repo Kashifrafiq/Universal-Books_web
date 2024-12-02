@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [notFeaturedAlbums, setNotFeaturedAlbums] = useState([]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
   // Simulated data fetching
@@ -34,7 +35,12 @@ const Dashboard = () => {
     setIsPopupVisible(false);
   };
 
-  const peymentHandle  =  async ()=>{
+  const peymentHandle = async (selectedPlan) => {
+    if (!selectedPlan) {
+      alert("Please select a plan first.");
+      return;
+    }
+
     const currentUser = auth.currentUser;
     if (!currentUser) {
       alert("Please log in first.");
@@ -42,114 +48,152 @@ const Dashboard = () => {
     }
 
     const uid = currentUser.uid; // User's unique ID
-    await createCheckOutSession(uid); 
-   }
+
+    // Disable the button and show loader
+    setLoading(true);
+
+    // Pass the selected plan to the checkout session
+    await createCheckOutSession(uid, selectedPlan, setIsLoading);
+
+    // After successful payment processing, re-enable the button
+    setLoading(false);
+  };
   
   return (
     <div style={{ backgroundColor: 'white', position: 'relative' }}>
     {isPopupVisible && (
-  <div
-    style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000,
-    }}
-  >
-    <div
-      style={{
-        backgroundColor: 'white',
-        padding: '30px',
-        borderRadius: '12px',
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-        // textAlign: 'center',
-        width: '500px',
-        position: 'relative',
-      }}
-    >
-      {/* Close Button */}
-      <button
-        onClick={closePopup}
+      <div
         style={{
-          position: 'absolute',
-          top: '15px',
-          right: '15px',
-          background: 'none',
-          border: 'none',
-          fontSize: '20px',
-          cursor: 'pointer',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000,
         }}
-        aria-label="Close"
       >
-        &#10006; {/* Unicode for "X" icon */}
-      </button>
-
-      <h2 style={{ marginBottom: '20px', color: '#333' }}>Select Your Plan</h2>
-      <p style={{ marginBottom: '30px', color: '#666' }}>
-      Please select a plan below
-      </p>
-
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        {/* Plan 1 */}
         <div
-          onClick={() => setSelectedPlan(1)}
           style={{
-            padding: '20px',
-            border: selectedPlan === 1 ? '2px solid lightblue' : '2px solid #ddd',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            width: '45%',
-            textAlign: 'center',
+            backgroundColor: 'white',
+            padding: '30px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+            width: '500px',
+            position: 'relative',
           }}
         >
-          <h5 style={{ marginBottom: '10px' }}> MONTHLY PLAN </h5>
-          <p style={{ marginBottom: '10px' }}>$ 10.00 / month</p>
-        </div>
+          {/* Close Button */}
+          <button
+            onClick={closePopup}
+            style={{
+              position: 'absolute',
+              top: '15px',
+              right: '15px',
+              background: 'none',
+              border: 'none',
+              fontSize: '20px',
+              cursor: 'pointer',
+            }}
+            aria-label="Close"
+          >
+            &#10006; {/* Unicode for "X" icon */}
+          </button>
 
-        {/* Plan 2 */}
-        <div
-          onClick={() => setSelectedPlan(2)}
-          style={{
-            padding: '20px',
-            border: selectedPlan === 2 ? '2px solid lightblue' : '2px solid #ddd',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            width: '45%',
-            textAlign: 'center',
-          }}
-        >
-          <h5 style={{ marginBottom: '10px' }}>YEARLY PLAN</h5>
-          <p style={{ marginBottom: '10px' }}>$ 99.00 / year</p>
-        </div>
-      </div>
-      <div>
-      </div>
-        <button style={{all:"unset", marginLeft:"10px" , marginTop:"20px" , padding:"10px" , backgroundColor:"#44c8f5" , width:"100px" , textAlign:"center" , borderRadius:"30px" , cursor:"pointer"  }} onClick={peymentHandle}>Pay</button>
-        <button style={{all:"unset",cursor:"pointer", marginLeft:"10px" , marginTop:"20px" , padding:"10px"  , width:"100px" , textAlign:"center" , borderRadius:"30px"}} onClick={closePopup}>Cancel</button>
-    </div>
-  </div>
-)}
+          <h2 style={{ marginBottom: '20px', color: '#333' }}>Select Your Plan</h2>
+          <p style={{ marginBottom: '30px', color: '#666' }}>
+            Please select a plan below
+          </p>
 
-
-      {!isPopupVisible && (
-        <>
-          {isLoading ? (
-            <div className="col-lg-12 d-flex justify-content-center align-items-center main-loader">
-              <div className="loader">
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-              </div>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            {/* Monthly Plan */}
+            <div
+              onClick={() => setSelectedPlan("monthly")}
+              style={{
+                padding: '20px',
+                border: selectedPlan === "monthly" ? '2px solid lightblue' : '2px solid #ddd',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                width: '45%',
+                textAlign: 'center',
+              }}
+            >
+              <h5 style={{ marginBottom: '10px' }}>MONTHLY PLAN</h5>
+              <p style={{ marginBottom: '10px' }}>$10.00 / month</p>
             </div>
-          ) : (
-            <div className="container pb-5">
+
+            {/* Yearly Plan */}
+            <div
+              onClick={() => setSelectedPlan("yearly")}
+              style={{
+                padding: '20px',
+                border: selectedPlan === "yearly" ? '2px solid lightblue' : '2px solid #ddd',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                width: '45%',
+                textAlign: 'center',
+              }}
+            >
+              <h5 style={{ marginBottom: '10px' }}>YEARLY PLAN</h5>
+              <p style={{ marginBottom: '10px' }}>$99.00 / year</p>
+            </div>
+          </div>
+
+          {/* Payment Button */}
+          <button
+            style={{
+              all: 'unset',
+              marginLeft: '10px',
+              marginTop: '20px',
+              padding: '10px',
+              backgroundColor: '#44c8f5',
+              width: '100px',
+              textAlign: 'center',
+              borderRadius: '30px',
+              cursor: 'pointer',
+            }}
+            onClick={() => peymentHandle(selectedPlan)} // Pass the selected plan
+            disabled={loading || !selectedPlan}
+          >
+            {loading ? 'Processing...' : 'Pay Now'}
+          </button>
+
+          {/* Cancel Button */}
+          <button
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              marginLeft: '10px',
+              marginTop: '20px',
+              padding: '10px',
+              width: '100px',
+              textAlign: 'center',
+              borderRadius: '30px',
+            }}
+            onClick={closePopup}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )}
+
+    {!isPopupVisible && (
+      <>
+        {isLoading ? (
+          <div className="col-lg-12 d-flex justify-content-center align-items-center main-loader">
+            <div className="loader">
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+              <div className="circle"></div>
+            </div>
+          </div>
+        ) : (
+          <div className="container pb-5">
               {/* Banner */}
               {!userActiveSubscriptions && (
   <div className="custom-banner mt-5 d-flex align-items-center">
@@ -220,7 +264,6 @@ const Dashboard = () => {
                     Browser Plan
                   </button>
 
-                  {/* Mobile Images */}
                   <div className="row pt-4 pb-4 d-xl-flex d-lg-flex d-md-flex d-sm-none d-none">
                     <div className="col-xl-3 col-lg-3 col-md-6">
                       <img
